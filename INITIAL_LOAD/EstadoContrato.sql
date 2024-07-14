@@ -1,0 +1,10 @@
+insert into EstadoContrato (cod_estado, descrip_estado) values (1, 'En espera de aprobación');
+insert into EstadoContrato (cod_estado, descrip_estado) values (2, 'Vencido');
+insert into EstadoContrato (cod_estado, descrip_estado) values (3, 'En proceso de cobranza');
+insert into EstadoContrato (cod_estado, descrip_estado) values (4, 'En proceso de renovación');
+insert into EstadoContrato (cod_estado, descrip_estado) values (5, 'Suspendido');
+insert into EstadoContrato (cod_estado, descrip_estado) values (6, 'En proceso de renovación');
+insert into EstadoContrato (cod_estado, descrip_estado) values (7, 'En trámite de pago');
+insert into EstadoContrato (cod_estado, descrip_estado) values (8, 'En proceso de renovación');
+insert into EstadoContrato (cod_estado, descrip_estado) values (9, 'Activo');
+insert into EstadoContrato (cod_estado, descrip_estado) values (10, 'En proceso de renovación');
