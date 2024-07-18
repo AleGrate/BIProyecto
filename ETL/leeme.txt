@@ -1,0 +1,2 @@
+-En las conexiones con la bases de datos se tiene que cambiar las contraseñas, el usuarios deberia ser el mismo pero la 
+contraseña no.
