@@ -61,7 +61,6 @@ insert into SEGURO_G26473471.RECOMIENDA (cod_cliente, cod_evaluacion_servicio, c
 insert into SEGURO_G26473471.RECOMIENDA (cod_cliente, cod_evaluacion_servicio, cod_producto, recomienda_amigo) values (246, 3, 24, false);
 insert into SEGURO_G26473471.RECOMIENDA (cod_cliente, cod_evaluacion_servicio, cod_producto, recomienda_amigo) values (166, 5, 25, true);
 insert into SEGURO_G26473471.RECOMIENDA (cod_cliente, cod_evaluacion_servicio, cod_producto, recomienda_amigo) values (92, 5, 30, false);
-insert into SEGURO_G26473471.RECOMIENDA (cod_cliente, cod_evaluacion_servicio, cod_producto, recomienda_amigo) values (278, 2, 19, true);
 insert into SEGURO_G26473471.RECOMIENDA (cod_cliente, cod_evaluacion_servicio, cod_producto, recomienda_amigo) values (56, 4, 24, true);
 insert into SEGURO_G26473471.RECOMIENDA (cod_cliente, cod_evaluacion_servicio, cod_producto, recomienda_amigo) values (229, 2, 4, false);
 insert into SEGURO_G26473471.RECOMIENDA (cod_cliente, cod_evaluacion_servicio, cod_producto, recomienda_amigo) values (160, 5, 28, true);
@@ -340,7 +339,6 @@ insert into SEGURO_G26473471.RECOMIENDA (cod_cliente, cod_evaluacion_servicio, c
 insert into SEGURO_G26473471.RECOMIENDA (cod_cliente, cod_evaluacion_servicio, cod_producto, recomienda_amigo) values (209, 4, 8, false);
 insert into SEGURO_G26473471.RECOMIENDA (cod_cliente, cod_evaluacion_servicio, cod_producto, recomienda_amigo) values (24, 5, 10, false);
 insert into SEGURO_G26473471.RECOMIENDA (cod_cliente, cod_evaluacion_servicio, cod_producto, recomienda_amigo) values (68, 3, 1, true);
-insert into SEGURO_G26473471.RECOMIENDA (cod_cliente, cod_evaluacion_servicio, cod_producto, recomienda_amigo) values (288, 6, 21, false);
 insert into SEGURO_G26473471.RECOMIENDA (cod_cliente, cod_evaluacion_servicio, cod_producto, recomienda_amigo) values (65, 4, 15, true);
 insert into SEGURO_G26473471.RECOMIENDA (cod_cliente, cod_evaluacion_servicio, cod_producto, recomienda_amigo) values (152, 6, 3, false);
 insert into SEGURO_G26473471.RECOMIENDA (cod_cliente, cod_evaluacion_servicio, cod_producto, recomienda_amigo) values (252, 4, 22, false);
