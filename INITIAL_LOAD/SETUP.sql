@@ -3,13 +3,13 @@ DROP SCHEMA IF EXISTS SEGURO_G26473471 CASCADE;
 CREATE SCHEMA SEGURO_G26473471;
 
 -- Create PRODUCTO table
-CREATE TABLE PAIS (
+CREATE TABLE SEGURO_G26473471.PAIS (
   cod_pais INTEGER,
   nb_pais VARCHAR(255),
   CONSTRAINT pk_pais PRIMARY KEY (cod_pais)
 );
 
-CREATE TABLE CIUDAD (
+CREATE TABLE SEGURO_G26473471.CIUDAD (
   cod_ciudad INTEGER,
   nb_ciudad VARCHAR(255),
   cod_pais INTEGER,
@@ -17,7 +17,7 @@ CREATE TABLE CIUDAD (
   CONSTRAINT fk_ciudad_pais FOREIGN KEY (cod_pais) REFERENCES PAIS (cod_pais)
 );
 
-CREATE TABLE SUCURSAL (
+CREATE TABLE SEGURO_G26473471.SUCURSAL (
   cod_sucursal INTEGER,
   nb_sucursal VARCHAR(255),
   cod_ciudad INTEGER,
@@ -25,13 +25,13 @@ CREATE TABLE SUCURSAL (
   CONSTRAINT fk_sucursal_ciudad FOREIGN KEY (cod_ciudad) REFERENCES CIUDAD (cod_ciudad)
 );
 
-CREATE TABLE TIPO_PRODUCTO (
+CREATE TABLE SEGURO_G26473471.TIPO_PRODUCTO (
   cod_tipo_producto INTEGER,
   nb_tipo_producto VARCHAR(255),
   CONSTRAINT pk_tipo_producto PRIMARY KEY (cod_tipo_producto)
 );
 
-CREATE TABLE PRODUCTO (
+CREATE TABLE SEGURO_G26473471.PRODUCTO (
   cod_producto INTEGER,
   nb_producto VARCHAR(255),
   descripcion TEXT,
@@ -41,7 +41,7 @@ CREATE TABLE PRODUCTO (
   CONSTRAINT fk_producto_tipo_producto FOREIGN KEY (cod_tipo_producto) REFERENCES TIPO_PRODUCTO (cod_tipo_producto)
 );
 
-CREATE TABLE CLIENTE (
+CREATE TABLE SEGURO_G26473471.CLIENTE (
   cod_cliente INTEGER,
   nb_cliente VARCHAR(255),
   ci_rif VARCHAR(255),
@@ -54,13 +54,13 @@ CREATE TABLE CLIENTE (
   CONSTRAINT fk_cliente_sucursal FOREIGN KEY (cod_sucursal) REFERENCES SUCURSAL (cod_sucursal)
 );
 
-CREATE TABLE EVALUACION_SERVICIO (
+CREATE TABLE SEGURO_G26473471.EVALUACION_SERVICIO (
   cod_evaluacion_servicio INTEGER,
   nb_descripcion VARCHAR(255),
   CONSTRAINT pk_evaluacion_servicio PRIMARY KEY (cod_evaluacion_servicio)
 );
 
-CREATE TABLE RECOMIENDA (
+CREATE TABLE SEGURO_G26473471.RECOMIENDA (
   cod_cliente INTEGER,
   cod_evaluacion_servicio INTEGER,
   cod_producto INTEGER,
@@ -71,13 +71,13 @@ CREATE TABLE RECOMIENDA (
   CONSTRAINT fk_recomienda_producto FOREIGN KEY (cod_producto) REFERENCES PRODUCTO (cod_producto)
 );
 
-CREATE TABLE CONTRATO (
+CREATE TABLE SEGURO_G26473471.CONTRATO (
   nro_contrato SERIAL,
   descrip_contrato TEXT,
   CONSTRAINT pk_contrato PRIMARY KEY (nro_contrato)
 );
 
-CREATE TABLE REGISTRO_CONTRATO (
+CREATE TABLE SEGURO_G26473471.REGISTRO_CONTRATO (
   nro_contrato INTEGER,
   cod_producto INTEGER,
   cod_cliente INTEGER,
@@ -91,7 +91,7 @@ CREATE TABLE REGISTRO_CONTRATO (
   CONSTRAINT fk_registro_contrato_cliente FOREIGN KEY (cod_cliente) REFERENCES CLIENTE (cod_cliente)
 );
 
-CREATE TABLE REGISTRO_SINIESTRO (
+CREATE TABLE SEGURO_G26473471.REGISTRO_SINIESTRO (
   nro_siniestro SERIAL,
   nro_contrato INTEGER,
   fecha_siniestro DATE,
@@ -103,7 +103,7 @@ CREATE TABLE REGISTRO_SINIESTRO (
   CONSTRAINT fk_registro_siniestro_contrato FOREIGN KEY (nro_contrato) REFERENCES CONTRATO (nro_contrato)
 );
 
-CREATE TABLE SINIESTRO (
+CREATE TABLE SEGURO_G26473471.SINIESTRO (
   nro_siniestro INTEGER,
   descripcion_siniestro TEXT,
   CONSTRAINT pk_siniestro PRIMARY KEY (nro_siniestro),
