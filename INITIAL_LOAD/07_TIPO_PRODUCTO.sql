@@ -1,0 +1,10 @@
+insert into SEGURO_G26473471.TIPO_PRODUCTO (cod_tipo_producto, nb_tipo_producto) values (1, 'Seguro de vida');
+insert into SEGURO_G26473471.TIPO_PRODUCTO (cod_tipo_producto, nb_tipo_producto) values (2, 'Seguro de auto');
+insert into SEGURO_G26473471.TIPO_PRODUCTO (cod_tipo_producto, nb_tipo_producto) values (3, 'Seguro de hogar');
+insert into SEGURO_G26473471.TIPO_PRODUCTO (cod_tipo_producto, nb_tipo_producto) values (4, 'Seguro de salud');
+insert into SEGURO_G26473471.TIPO_PRODUCTO (cod_tipo_producto, nb_tipo_producto) values (5, 'Seguro de viaje');
+insert into SEGURO_G26473471.TIPO_PRODUCTO (cod_tipo_producto, nb_tipo_producto) values (6, 'Seguro de mascotas');
+insert into SEGURO_G26473471.TIPO_PRODUCTO (cod_tipo_producto, nb_tipo_producto) values (7, 'Seguro de accidentes');
+insert into SEGURO_G26473471.TIPO_PRODUCTO (cod_tipo_producto, nb_tipo_producto) values (8, 'Seguro de responsabilidad civil');
+insert into SEGURO_G26473471.TIPO_PRODUCTO (cod_tipo_producto, nb_tipo_producto) values (9, 'Seguro de desempleo');
+insert into SEGURO_G26473471.TIPO_PRODUCTO (cod_tipo_producto, nb_tipo_producto) values (10, 'Seguro de invalidez');

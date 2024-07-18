@@ -1,13 +1,13 @@
 #!/usr/bin/env bash
 
-TAG=DEV_1.0
-DOCKER_REGISTRY=nexus.cgtscorp.com:8082
-CONTAINER_NAME=hacc-db
+TAG=postgres
+DOCKER_REGISTRY=localhost:5000
+CONTAINER_NAME=bi-db
 
 docker stop $CONTAINER_NAME
 docker rm $CONTAINER_NAME
 
-docker run -d --name $CONTAINER_NAME -p 5555:5432 --restart always $DOCKER_REGISTRY/$CONTAINER_NAME:$TAG;
+docker run -d --name my-postgres -p 5432:5432 -e POSTGRES_PASSWORD=mysecretpassword postgres:$TAG
 
 sleep 20
 

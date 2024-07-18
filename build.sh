@@ -1,12 +1,11 @@
 #!/usr/bin/env bash
 
-TAG=DEV_1.0
+#!/usr/bin/env bash
 
-REGISTRY=nexus.cgtscorp.com:8082
+TAG=postgres
+REGISTRY=localhost:5000
 
-docker stop hacc-db
-docker rm hacc-db
-docker rmi -f $(docker images | grep hacc-db | awk "{print \$3}")
-docker rmi -f $(docker images | grep "<none>" | awk "{print \$3}")
+docker stop my-postgres
+docker rm my-postgres
 
-docker build -t $REGISTRY/hacc-db:$TAG .
+docker build -t $REGISTRY/bi-db:$TAG .
