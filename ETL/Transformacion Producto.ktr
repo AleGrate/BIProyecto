@@ -489,11 +489,6 @@
   </connection>
   <order>
     <hop>
-      <from>Unión por clave</from>
-      <to>Añadir secuencia sk_dim_producto</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
       <from>Entrada Tabla Tipo Producto</from>
       <to>Ordenar filas</to>
       <enabled>Y</enabled>
@@ -514,51 +509,21 @@
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Añadir secuencia sk_dim_producto</from>
-      <to>Strings cut</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
       <from>Strings cut</from>
       <to>Salida Tabla</to>
       <enabled>Y</enabled>
     </hop>
+    <hop>
+      <from>Unión por clave</from>
+      <to>Generate random value sk_dim_producto</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Generate random value sk_dim_producto</from>
+      <to>Strings cut</to>
+      <enabled>Y</enabled>
+    </hop>
   </order>
-  <step>
-    <name>Añadir secuencia sk_dim_producto</name>
-    <type>Sequence</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <valuename>sk_dim_producto</valuename>
-    <use_database>N</use_database>
-    <connection>Postgres</connection>
-    <schema/>
-    <seqname>SEQ_</seqname>
-    <use_counter>Y</use_counter>
-    <counter_name>sk_dim_producto</counter_name>
-    <start_at>1</start_at>
-    <increment_by>1</increment_by>
-    <max_value>999999999</max_value>
-    <attributes/>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>704</xloc>
-      <yloc>272</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
   <step>
     <name>Entrada Tabla Producto</name>
     <type>TableInput</type>
@@ -1053,13 +1018,13 @@ FROM seguro_g26473471.tipo_producto
         <in_stream_name>nb_tipo_producto</in_stream_name>
         <out_stream_name/>
         <cut_from/>
-        <cut_to/>
+        <cut_to>25</cut_to>
       </field>
       <field>
         <in_stream_name>nb_producto</in_stream_name>
         <out_stream_name/>
         <cut_from/>
-        <cut_to/>
+        <cut_to>25</cut_to>
       </field>
       <field>
         <in_stream_name>descripcion</in_stream_name>
@@ -1078,6 +1043,37 @@ FROM seguro_g26473471.tipo_producto
     </remotesteps>
     <GUI>
       <xloc>960</xloc>
+      <yloc>272</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Generate random value sk_dim_producto</name>
+    <type>RandomValue</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <fields>
+      <field>
+        <name>sk_dim_producto</name>
+        <type>random integer</type>
+      </field>
+    </fields>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>720</xloc>
       <yloc>272</yloc>
       <draw>Y</draw>
     </GUI>
