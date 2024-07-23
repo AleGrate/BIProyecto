@@ -440,10 +440,10 @@
     <server>localhost</server>
     <type>POSTGRESQL</type>
     <access>Native</access>
-    <database>temporal</database>
+    <database>proyecto_bi</database>
     <port>5432</port>
-    <username>postgres</username>
-    <password>Encrypted 2be98afc86aa7f2e4f94efd228fc7fd88</password>
+    <username>user_prueba</username>
+    <password>Encrypted 2be98afc86aa7f2e4cb79ce108fc0fc8e</password>
     <servername/>
     <data_tablespace/>
     <index_tablespace/>
@@ -549,7 +549,7 @@ FROM seguro_g26473471.ciudad
         <name>cod_ciudad</name>
         <length>9</length>
         <precision>0</precision>
-        <origin>Entrada Tabla Pais 2</origin>
+        <origin>Entrada Tabla Ciudad</origin>
         <comments>cod_ciudad</comments>
         <conversion_Mask>####0;-####0</conversion_Mask>
         <decimal_symbol>,</decimal_symbol>
@@ -572,7 +572,7 @@ FROM seguro_g26473471.ciudad
         <name>nb_ciudad</name>
         <length>255</length>
         <precision>-1</precision>
-        <origin>Entrada Tabla Pais 2</origin>
+        <origin>Entrada Tabla Ciudad</origin>
         <comments>nb_ciudad</comments>
         <conversion_Mask/>
         <decimal_symbol>,</decimal_symbol>
@@ -595,7 +595,7 @@ FROM seguro_g26473471.ciudad
         <name>cod_pais</name>
         <length>9</length>
         <precision>0</precision>
-        <origin>Entrada Tabla Pais 2</origin>
+        <origin>Entrada Tabla Ciudad</origin>
         <comments>cod_pais</comments>
         <conversion_Mask>####0;-####0</conversion_Mask>
         <decimal_symbol>,</decimal_symbol>
@@ -657,7 +657,7 @@ FROM seguro_g26473471.pais
         <name>cod_pais</name>
         <length>9</length>
         <precision>0</precision>
-        <origin>Entrada Tabla Sucursal 2</origin>
+        <origin>Entrada Tabla Pais</origin>
         <comments>cod_pais</comments>
         <conversion_Mask>####0;-####0</conversion_Mask>
         <decimal_symbol>,</decimal_symbol>
@@ -680,7 +680,7 @@ FROM seguro_g26473471.pais
         <name>nb_pais</name>
         <length>255</length>
         <precision>-1</precision>
-        <origin>Entrada Tabla Sucursal 2</origin>
+        <origin>Entrada Tabla Pais</origin>
         <comments>nb_pais</comments>
         <conversion_Mask/>
         <decimal_symbol>,</decimal_symbol>
@@ -822,6 +822,37 @@ FROM seguro_g26473471.sucursal
     </GUI>
   </step>
   <step>
+    <name>Generate random value sk_dim_sucursal</name>
+    <type>RandomValue</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <fields>
+      <field>
+        <name>sk_dim_sucursal</name>
+        <type>random integer</type>
+      </field>
+    </fields>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>832</xloc>
+      <yloc>336</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
     <name>Salida Tabla</name>
     <type>TableOutput</type>
     <description/>
@@ -833,7 +864,7 @@ FROM seguro_g26473471.sucursal
       <schema_name/>
     </partitioning>
     <connection>Postgres</connection>
-    <schema>seguro_g27321522</schema>
+    <schema>seguro_dw_g26473471</schema>
     <table>dim_sucursal</table>
     <commit>1000</commit>
     <truncate>N</truncate>
@@ -957,37 +988,6 @@ FROM seguro_g26473471.sucursal
     </remotesteps>
     <GUI>
       <xloc>640</xloc>
-      <yloc>336</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>Generate random value sk_dim_sucursal</name>
-    <type>RandomValue</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <fields>
-      <field>
-        <name>sk_dim_sucursal</name>
-        <type>random integer</type>
-      </field>
-    </fields>
-    <attributes/>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>832</xloc>
       <yloc>336</yloc>
       <draw>Y</draw>
     </GUI>
