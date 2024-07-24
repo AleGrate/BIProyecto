@@ -596,7 +596,7 @@
     <accept_field/>
     <accept_stepname/>
     <file>
-      <name>C:/Proyectos/ProBI/BIProyecto-1/ETL LF/metabi2.xlsx</name>
+      <name>C:\proyectobi\metabi2.xlsx</name>
       <filemask/>
       <exclude_filemask/>
       <file_required>N</file_required>
