@@ -431,7 +431,7 @@
     <created_date>2024/07/18 12:26:29.819</created_date>
     <modified_user>-</modified_user>
     <modified_date>2024/07/18 12:26:29.819</modified_date>
-    <key_for_session_key/>
+    <key_for_session_key>H4sIAAAAAAAAAAMAAAAAAAAAAAA=</key_for_session_key>
     <is_key_private>N</is_key_private>
   </info>
   <notepads>
@@ -441,21 +441,63 @@
     <server>localhost</server>
     <type>POSTGRESQL</type>
     <access>Native</access>
-    <database>temporal</database>
+    <database>proyecto_bi</database>
     <port>5432</port>
-    <username>postgres</username>
-    <password>Encrypted 2be98afc86aa7f2e4f94efd228fc7fd88</password>
+    <username>user_prueba</username>
+    <password>Encrypted 2be98afc86aa7f2e4cb79ce108fc0fc8e</password>
     <servername/>
     <data_tablespace/>
     <index_tablespace/>
     <attributes>
       <attribute>
+        <code>FORCE_IDENTIFIERS_TO_LOWERCASE</code>
+        <attribute>N</attribute>
+      </attribute>
+      <attribute>
+        <code>FORCE_IDENTIFIERS_TO_UPPERCASE</code>
+        <attribute>N</attribute>
+      </attribute>
+      <attribute>
+        <code>IS_CLUSTERED</code>
+        <attribute>N</attribute>
+      </attribute>
+      <attribute>
         <code>PORT_NUMBER</code>
         <attribute>5432</attribute>
+      </attribute>
+      <attribute>
+        <code>PRESERVE_RESERVED_WORD_CASE</code>
+        <attribute>Y</attribute>
+      </attribute>
+      <attribute>
+        <code>QUOTE_ALL_FIELDS</code>
+        <attribute>N</attribute>
+      </attribute>
+      <attribute>
+        <code>SUPPORTS_BOOLEAN_DATA_TYPE</code>
+        <attribute>N</attribute>
+      </attribute>
+      <attribute>
+        <code>SUPPORTS_TIMESTAMP_DATA_TYPE</code>
+        <attribute>N</attribute>
+      </attribute>
+      <attribute>
+        <code>USE_POOLING</code>
+        <attribute>N</attribute>
       </attribute>
     </attributes>
   </connection>
   <order>
+    <hop>
+      <from>Extraccion Pais</from>
+      <to>Añadir secuencia</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Añadir secuencia</from>
+      <to>Insertar / Actualizar</to>
+      <enabled>Y</enabled>
+    </hop>
   </order>
   <step>
     <name>Extraccion Pais</name>
@@ -487,7 +529,7 @@ FROM seguro_g26473471.pais
         <name>cod_pais</name>
         <length>9</length>
         <precision>0</precision>
-        <origin>Entrada Tabla</origin>
+        <origin>Extraccion Pais</origin>
         <comments>cod_pais</comments>
         <conversion_Mask>####0;-####0</conversion_Mask>
         <decimal_symbol>,</decimal_symbol>
@@ -510,7 +552,7 @@ FROM seguro_g26473471.pais
         <name>nb_pais</name>
         <length>255</length>
         <precision>-1</precision>
-        <origin>Entrada Tabla</origin>
+        <origin>Extraccion Pais</origin>
         <comments>nb_pais</comments>
         <conversion_Mask/>
         <decimal_symbol>,</decimal_symbol>
@@ -537,7 +579,80 @@ FROM seguro_g26473471.pais
       </output>
     </remotesteps>
     <GUI>
-      <xloc>240</xloc>
+      <xloc>224</xloc>
+      <yloc>240</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Insertar / Actualizar</name>
+    <type>InsertUpdate</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <connection>ConexionPostgre</connection>
+    <commit>100</commit>
+    <update_bypassed>Y</update_bypassed>
+    <lookup>
+      <schema>seguro_g26473471</schema>
+      <table>pais</table>
+      <key>
+        <name>valuename</name>
+        <field>cod_pais</field>
+        <condition>=</condition>
+        <name2/>
+      </key>
+    </lookup>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>464</xloc>
+      <yloc>240</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Añadir secuencia</name>
+    <type>Sequence</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <valuename>valuename</valuename>
+    <use_database>N</use_database>
+    <connection>ConexionPostgre</connection>
+    <schema/>
+    <seqname>SEQ_</seqname>
+    <use_counter>Y</use_counter>
+    <counter_name/>
+    <start_at>20</start_at>
+    <increment_by>1</increment_by>
+    <max_value>999999999</max_value>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>336</xloc>
       <yloc>240</yloc>
       <draw>Y</draw>
     </GUI>
