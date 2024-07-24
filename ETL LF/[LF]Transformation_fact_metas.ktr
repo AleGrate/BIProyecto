@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <transformation>
   <info>
-    <name>Transformacion ProductoLF</name>
+    <name>LFTransformation_fact_metas</name>
     <description/>
     <extended_description/>
     <trans_version/>
@@ -428,16 +428,16 @@
     <clusterschemas>
     </clusterschemas>
     <created_user>-</created_user>
-    <created_date>2024/07/18 15:27:28.414</created_date>
+    <created_date>2024/07/24 16:24:23.789</created_date>
     <modified_user>-</modified_user>
-    <modified_date>2024/07/18 15:27:28.414</modified_date>
-    <key_for_session_key>H4sIAAAAAAAAAAMAAAAAAAAAAAA=</key_for_session_key>
+    <modified_date>2024/07/24 16:24:23.789</modified_date>
+    <key_for_session_key/>
     <is_key_private>N</is_key_private>
   </info>
   <notepads>
   </notepads>
   <connection>
-    <name>Postgres</name>
+    <name>postgre</name>
     <server>localhost</server>
     <type>POSTGRESQL</type>
     <access>Native</access>
@@ -489,59 +489,89 @@
   </connection>
   <order>
     <hop>
-      <from>Entrada Tabla Tipo Producto</from>
-      <to>Ordenar filas</to>
+      <from>Microsoft Excel metas</from>
+      <to>Sort cod_prod 2</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Entrada Tabla Producto</from>
-      <to>Ordenar filas 2</to>
+      <from>extraer producto</from>
+      <to>Sort cod_prod</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Ordenar filas</from>
-      <to>Unión por clave</to>
+      <from>Sort cod_prod</from>
+      <to>Merge join</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Ordenar filas 2</from>
-      <to>Unión por clave</to>
+      <from>Sort cod_prod 2</from>
+      <to>Merge join</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Strings cut</from>
-      <to>Salida Tabla</to>
+      <from>Merge join</from>
+      <to>Quitar cod_prod y dejar SK</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Unión por clave</from>
-      <to>Generate random value sk_dim_producto</to>
-      <enabled>N</enabled>
-    </hop>
-    <hop>
-      <from>Generate random value sk_dim_producto</from>
-      <to>Strings cut</to>
-      <enabled>N</enabled>
-    </hop>
-    <hop>
-      <from>Add sequence sk_dim_producto</from>
-      <to>Strings cut</to>
+      <from>Quitar cod_prod y dejar SK</from>
+      <to>Sort fecha_inicio</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Unión por clave</from>
-      <to>Ordenar filas 3</to>
+      <from>extraer dim_tiempo</from>
+      <to>Sort fecha_completa</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Ordenar filas 3</from>
-      <to>Add sequence sk_dim_producto</to>
+      <from>Sort fecha_inicio</from>
+      <to>Merge join 2</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Merge join 2</from>
+      <to>Select values 2</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Sort fecha_completa</from>
+      <to>Merge join 2</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Select values 2</from>
+      <to>Sort fecha_final</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>extraer dim_tiempo2</from>
+      <to>Sort fecha_completa2</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Sort fecha_final</from>
+      <to>Merge join 3</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Sort fecha_completa2</from>
+      <to>Merge join 3</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Merge join 3</from>
+      <to>dejar sk_dim fec_final </to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>dejar sk_dim fec_final </from>
+      <to>Table output</to>
       <enabled>Y</enabled>
     </hop>
   </order>
   <step>
-    <name>Add sequence sk_dim_producto</name>
-    <type>Sequence</type>
+    <name>Microsoft Excel metas</name>
+    <type>ExcelInput</type>
     <description/>
     <distribute>Y</distribute>
     <custom_distribution/>
@@ -550,16 +580,128 @@
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <valuename>sk_dim_producto</valuename>
-    <use_database>N</use_database>
-    <connection>Postgres</connection>
-    <schema/>
-    <seqname>SEQ_</seqname>
-    <use_counter>Y</use_counter>
-    <counter_name/>
-    <start_at>1</start_at>
-    <increment_by>1</increment_by>
-    <max_value>999999999</max_value>
+    <header>Y</header>
+    <noempty>Y</noempty>
+    <stoponempty>N</stoponempty>
+    <filefield/>
+    <sheetfield/>
+    <sheetrownumfield/>
+    <rownumfield/>
+    <sheetfield/>
+    <filefield/>
+    <limit>0</limit>
+    <encoding/>
+    <add_to_result_filenames>Y</add_to_result_filenames>
+    <accept_filenames>N</accept_filenames>
+    <accept_field/>
+    <accept_stepname/>
+    <file>
+      <name>C:/Proyectos/ProBI/BIProyecto-1/ETL LF/metabi2.xlsx</name>
+      <filemask/>
+      <exclude_filemask/>
+      <file_required>N</file_required>
+      <include_subfolders>N</include_subfolders>
+    </file>
+    <fields>
+      <field>
+        <name>prod</name>
+        <type>Integer</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+        <repeat>N</repeat>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+      </field>
+      <field>
+        <name>fec_inicio</name>
+        <type>Date</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+        <repeat>N</repeat>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+      </field>
+      <field>
+        <name>fec_final</name>
+        <type>Date</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+        <repeat>N</repeat>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+      </field>
+      <field>
+        <name>monto</name>
+        <type>Integer</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+        <repeat>N</repeat>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+      </field>
+      <field>
+        <name>renov</name>
+        <type>Integer</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+        <repeat>N</repeat>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+      </field>
+      <field>
+        <name>aseg</name>
+        <type>Integer</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+        <repeat>N</repeat>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+      </field>
+    </fields>
+    <sheets>
+      <sheet>
+        <name>Hoja1</name>
+        <startrow>0</startrow>
+        <startcol>1</startcol>
+      </sheet>
+    </sheets>
+    <strict_types>N</strict_types>
+    <error_ignored>N</error_ignored>
+    <error_line_skipped>N</error_line_skipped>
+    <bad_line_files_destination_directory/>
+    <bad_line_files_extension>warning</bad_line_files_extension>
+    <error_line_files_destination_directory/>
+    <error_line_files_extension>error</error_line_files_extension>
+    <line_number_files_destination_directory/>
+    <line_number_files_extension>line</line_number_files_extension>
+    <shortFileFieldName/>
+    <pathFieldName/>
+    <hiddenFieldName/>
+    <lastModificationTimeFieldName/>
+    <uriNameFieldName/>
+    <rootUriNameFieldName/>
+    <extensionFieldName/>
+    <sizeFieldName/>
+    <spreadsheet_type>POI</spreadsheet_type>
+    <password>Encrypted </password>
     <attributes/>
     <cluster_schema/>
     <remotesteps>
@@ -569,13 +711,13 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>768</xloc>
-      <yloc>272</yloc>
+      <xloc>64</xloc>
+      <yloc>32</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
-    <name>Entrada Tabla Producto</name>
+    <name>extraer producto</name>
     <type>TableInput</type>
     <description/>
     <distribute>Y</distribute>
@@ -585,138 +727,105 @@
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <connection>Postgres</connection>
-    <sql>SELECT
-  cod_producto
-, nb_producto
-, descripcion
-, cod_tipo_producto
-, calificacion
-FROM seguro_g26473471.producto
-</sql>
+    <connection>postgre</connection>
+    <sql>SELECT 
+sk_dim_producto,
+cod_producto
+FROM
+seguro_dw_g26473471.dim_producto
+order by
+cod_producto</sql>
     <limit>0</limit>
     <lookup/>
     <execute_each_row>N</execute_each_row>
     <variables_active>N</variables_active>
     <lazy_conversion_active>N</lazy_conversion_active>
     <cached_row_meta_active>N</cached_row_meta_active>
-    <row-meta>
-      <value-meta>
-        <type>Integer</type>
-        <storagetype>normal</storagetype>
+    <row-meta/>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>64</xloc>
+      <yloc>128</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Sort cod_prod 2</name>
+    <type>SortRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <directory>%%java.io.tmpdir%%</directory>
+    <prefix>out</prefix>
+    <sort_size>1000000</sort_size>
+    <free_memory/>
+    <compress>N</compress>
+    <compress_variable/>
+    <unique_rows>N</unique_rows>
+    <fields>
+      <field>
+        <name>prod</name>
+        <ascending>Y</ascending>
+        <case_sensitive>N</case_sensitive>
+        <collator_enabled>N</collator_enabled>
+        <collator_strength>0</collator_strength>
+        <presorted>N</presorted>
+      </field>
+    </fields>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>208</xloc>
+      <yloc>32</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Sort cod_prod</name>
+    <type>SortRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <directory>%%java.io.tmpdir%%</directory>
+    <prefix>out</prefix>
+    <sort_size>1000000</sort_size>
+    <free_memory/>
+    <compress>N</compress>
+    <compress_variable/>
+    <unique_rows>N</unique_rows>
+    <fields>
+      <field>
         <name>cod_producto</name>
-        <length>9</length>
-        <precision>0</precision>
-        <origin>Entrada Tabla Producto</origin>
-        <comments>cod_producto</comments>
-        <conversion_Mask>####0;-####0</conversion_Mask>
-        <decimal_symbol>,</decimal_symbol>
-        <grouping_symbol>.</grouping_symbol>
-        <currency_symbol/>
-        <trim_type>none</trim_type>
-        <case_insensitive>N</case_insensitive>
-        <collator_disabled>Y</collator_disabled>
+        <ascending>Y</ascending>
+        <case_sensitive>N</case_sensitive>
+        <collator_enabled>N</collator_enabled>
         <collator_strength>0</collator_strength>
-        <sort_descending>N</sort_descending>
-        <output_padding>N</output_padding>
-        <date_format_lenient>N</date_format_lenient>
-        <date_format_locale>es_ES</date_format_locale>
-        <date_format_timezone>America/Cuiaba</date_format_timezone>
-        <lenient_string_to_number>N</lenient_string_to_number>
-      </value-meta>
-      <value-meta>
-        <type>String</type>
-        <storagetype>normal</storagetype>
-        <name>nb_producto</name>
-        <length>255</length>
-        <precision>-1</precision>
-        <origin>Entrada Tabla Producto</origin>
-        <comments>nb_producto</comments>
-        <conversion_Mask/>
-        <decimal_symbol>,</decimal_symbol>
-        <grouping_symbol>.</grouping_symbol>
-        <currency_symbol/>
-        <trim_type>none</trim_type>
-        <case_insensitive>N</case_insensitive>
-        <collator_disabled>Y</collator_disabled>
-        <collator_strength>0</collator_strength>
-        <sort_descending>N</sort_descending>
-        <output_padding>N</output_padding>
-        <date_format_lenient>N</date_format_lenient>
-        <date_format_locale>es_ES</date_format_locale>
-        <date_format_timezone>America/Cuiaba</date_format_timezone>
-        <lenient_string_to_number>N</lenient_string_to_number>
-      </value-meta>
-      <value-meta>
-        <type>String</type>
-        <storagetype>normal</storagetype>
-        <name>descripcion</name>
-        <length>2147483647</length>
-        <precision>-1</precision>
-        <origin>Entrada Tabla Producto</origin>
-        <comments>descripcion</comments>
-        <conversion_Mask/>
-        <decimal_symbol>,</decimal_symbol>
-        <grouping_symbol>.</grouping_symbol>
-        <currency_symbol/>
-        <trim_type>none</trim_type>
-        <case_insensitive>N</case_insensitive>
-        <collator_disabled>Y</collator_disabled>
-        <collator_strength>0</collator_strength>
-        <sort_descending>N</sort_descending>
-        <output_padding>N</output_padding>
-        <date_format_lenient>N</date_format_lenient>
-        <date_format_locale>es_ES</date_format_locale>
-        <date_format_timezone>America/Cuiaba</date_format_timezone>
-        <lenient_string_to_number>N</lenient_string_to_number>
-      </value-meta>
-      <value-meta>
-        <type>Integer</type>
-        <storagetype>normal</storagetype>
-        <name>cod_tipo_producto</name>
-        <length>9</length>
-        <precision>0</precision>
-        <origin>Entrada Tabla Producto</origin>
-        <comments>cod_tipo_producto</comments>
-        <conversion_Mask>####0;-####0</conversion_Mask>
-        <decimal_symbol>,</decimal_symbol>
-        <grouping_symbol>.</grouping_symbol>
-        <currency_symbol/>
-        <trim_type>none</trim_type>
-        <case_insensitive>N</case_insensitive>
-        <collator_disabled>Y</collator_disabled>
-        <collator_strength>0</collator_strength>
-        <sort_descending>N</sort_descending>
-        <output_padding>N</output_padding>
-        <date_format_lenient>N</date_format_lenient>
-        <date_format_locale>es_ES</date_format_locale>
-        <date_format_timezone>America/Cuiaba</date_format_timezone>
-        <lenient_string_to_number>N</lenient_string_to_number>
-      </value-meta>
-      <value-meta>
-        <type>Integer</type>
-        <storagetype>normal</storagetype>
-        <name>calificacion</name>
-        <length>9</length>
-        <precision>0</precision>
-        <origin>Entrada Tabla Producto</origin>
-        <comments>calificacion</comments>
-        <conversion_Mask>####0;-####0</conversion_Mask>
-        <decimal_symbol>,</decimal_symbol>
-        <grouping_symbol>.</grouping_symbol>
-        <currency_symbol/>
-        <trim_type>none</trim_type>
-        <case_insensitive>N</case_insensitive>
-        <collator_disabled>Y</collator_disabled>
-        <collator_strength>0</collator_strength>
-        <sort_descending>N</sort_descending>
-        <output_padding>N</output_padding>
-        <date_format_lenient>N</date_format_lenient>
-        <date_format_locale>es_ES</date_format_locale>
-        <date_format_timezone>America/Cuiaba</date_format_timezone>
-        <lenient_string_to_number>N</lenient_string_to_number>
-      </value-meta>
-    </row-meta>
+        <presorted>N</presorted>
+      </field>
+    </fields>
     <attributes/>
     <cluster_schema/>
     <remotesteps>
@@ -726,14 +835,14 @@ FROM seguro_g26473471.producto
       </output>
     </remotesteps>
     <GUI>
-      <xloc>224</xloc>
-      <yloc>368</yloc>
+      <xloc>208</xloc>
+      <yloc>128</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
-    <name>Entrada Tabla Tipo Producto</name>
-    <type>TableInput</type>
+    <name>Merge join</name>
+    <type>MergeJoin</type>
     <description/>
     <distribute>Y</distribute>
     <custom_distribution/>
@@ -742,66 +851,15 @@ FROM seguro_g26473471.producto
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <connection>Postgres</connection>
-    <sql>SELECT
-  cod_tipo_producto
-, nb_tipo_producto
-FROM seguro_g26473471.tipo_producto
-</sql>
-    <limit>0</limit>
-    <lookup/>
-    <execute_each_row>N</execute_each_row>
-    <variables_active>N</variables_active>
-    <lazy_conversion_active>N</lazy_conversion_active>
-    <cached_row_meta_active>N</cached_row_meta_active>
-    <row-meta>
-      <value-meta>
-        <type>Integer</type>
-        <storagetype>normal</storagetype>
-        <name>cod_tipo_producto</name>
-        <length>9</length>
-        <precision>0</precision>
-        <origin>Entrada Tabla Tipo Producto</origin>
-        <comments>cod_tipo_producto</comments>
-        <conversion_Mask>####0;-####0</conversion_Mask>
-        <decimal_symbol>,</decimal_symbol>
-        <grouping_symbol>.</grouping_symbol>
-        <currency_symbol/>
-        <trim_type>none</trim_type>
-        <case_insensitive>N</case_insensitive>
-        <collator_disabled>Y</collator_disabled>
-        <collator_strength>0</collator_strength>
-        <sort_descending>N</sort_descending>
-        <output_padding>N</output_padding>
-        <date_format_lenient>N</date_format_lenient>
-        <date_format_locale>es_ES</date_format_locale>
-        <date_format_timezone>America/Cuiaba</date_format_timezone>
-        <lenient_string_to_number>N</lenient_string_to_number>
-      </value-meta>
-      <value-meta>
-        <type>String</type>
-        <storagetype>normal</storagetype>
-        <name>nb_tipo_producto</name>
-        <length>255</length>
-        <precision>-1</precision>
-        <origin>Entrada Tabla Tipo Producto</origin>
-        <comments>nb_tipo_producto</comments>
-        <conversion_Mask/>
-        <decimal_symbol>,</decimal_symbol>
-        <grouping_symbol>.</grouping_symbol>
-        <currency_symbol/>
-        <trim_type>none</trim_type>
-        <case_insensitive>N</case_insensitive>
-        <collator_disabled>Y</collator_disabled>
-        <collator_strength>0</collator_strength>
-        <sort_descending>N</sort_descending>
-        <output_padding>N</output_padding>
-        <date_format_lenient>N</date_format_lenient>
-        <date_format_locale>es_ES</date_format_locale>
-        <date_format_timezone>America/Cuiaba</date_format_timezone>
-        <lenient_string_to_number>N</lenient_string_to_number>
-      </value-meta>
-    </row-meta>
+    <join_type>INNER</join_type>
+    <step1>Sort cod_prod 2</step1>
+    <step2>Sort cod_prod</step2>
+    <keys_1>
+      <key>prod</key>
+    </keys_1>
+    <keys_2>
+      <key>cod_producto</key>
+    </keys_2>
     <attributes/>
     <cluster_schema/>
     <remotesteps>
@@ -811,14 +869,14 @@ FROM seguro_g26473471.tipo_producto
       </output>
     </remotesteps>
     <GUI>
-      <xloc>224</xloc>
-      <yloc>208</yloc>
+      <xloc>320</xloc>
+      <yloc>96</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
-    <name>Generate random value sk_dim_producto</name>
-    <type>RandomValue</type>
+    <name>Quitar cod_prod y dejar SK</name>
+    <type>SelectValues</type>
     <description/>
     <distribute>Y</distribute>
     <custom_distribution/>
@@ -828,10 +886,31 @@ FROM seguro_g26473471.tipo_producto
       <schema_name/>
     </partitioning>
     <fields>
+      <field>
+        <name>fec_inicio</name>
+        <rename/>
+      </field>
+      <field>
+        <name>fec_final</name>
+        <rename/>
+      </field>
+      <field>
+        <name>monto</name>
+        <rename/>
+      </field>
+      <field>
+        <name>renov</name>
+        <rename/>
+      </field>
+      <field>
+        <name>aseg</name>
+        <rename/>
+      </field>
       <field>
         <name>sk_dim_producto</name>
-        <type>random integer</type>
+        <rename/>
       </field>
+      <select_unspecified>N</select_unspecified>
     </fields>
     <attributes/>
     <cluster_schema/>
@@ -842,13 +921,127 @@ FROM seguro_g26473471.tipo_producto
       </output>
     </remotesteps>
     <GUI>
-      <xloc>736</xloc>
-      <yloc>112</yloc>
+      <xloc>448</xloc>
+      <yloc>96</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
-    <name>Ordenar filas</name>
+    <name>Table input 2</name>
+    <type>TableInput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <connection/>
+    <sql>SELECT &lt;values> FROM &lt;table name> WHERE &lt;conditions></sql>
+    <limit>0</limit>
+    <lookup/>
+    <execute_each_row>N</execute_each_row>
+    <variables_active>N</variables_active>
+    <lazy_conversion_active>N</lazy_conversion_active>
+    <cached_row_meta_active>N</cached_row_meta_active>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>416</xloc>
+      <yloc>192</yloc>
+      <draw>N</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>extraer dim_tiempo</name>
+    <type>TableInput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <connection>postgre</connection>
+    <sql>SELECT sk_dim_tiempo, fecha_completa FROM seguro_dw_g26473471.dim_tiempo</sql>
+    <limit>0</limit>
+    <lookup/>
+    <execute_each_row>N</execute_each_row>
+    <variables_active>N</variables_active>
+    <lazy_conversion_active>N</lazy_conversion_active>
+    <cached_row_meta_active>N</cached_row_meta_active>
+    <row-meta>
+      <value-meta>
+        <type>Integer</type>
+        <storagetype>normal</storagetype>
+        <name>sk_dim_tiempo</name>
+        <length>9</length>
+        <precision>0</precision>
+        <origin>Table input 3</origin>
+        <comments>sk_dim_tiempo</comments>
+        <conversion_Mask>####0;-####0</conversion_Mask>
+        <decimal_symbol>,</decimal_symbol>
+        <grouping_symbol>.</grouping_symbol>
+        <currency_symbol/>
+        <trim_type>none</trim_type>
+        <case_insensitive>N</case_insensitive>
+        <collator_disabled>Y</collator_disabled>
+        <collator_strength>0</collator_strength>
+        <sort_descending>N</sort_descending>
+        <output_padding>N</output_padding>
+        <date_format_lenient>N</date_format_lenient>
+        <date_format_locale>es_VE</date_format_locale>
+        <date_format_timezone>America/Caracas</date_format_timezone>
+        <lenient_string_to_number>N</lenient_string_to_number>
+      </value-meta>
+      <value-meta>
+        <type>Date</type>
+        <storagetype>normal</storagetype>
+        <name>fecha_completa</name>
+        <length>-1</length>
+        <precision>-1</precision>
+        <origin>Table input 3</origin>
+        <comments>fecha_completa</comments>
+        <conversion_Mask/>
+        <decimal_symbol>,</decimal_symbol>
+        <grouping_symbol>.</grouping_symbol>
+        <currency_symbol/>
+        <trim_type>none</trim_type>
+        <case_insensitive>N</case_insensitive>
+        <collator_disabled>Y</collator_disabled>
+        <collator_strength>0</collator_strength>
+        <sort_descending>N</sort_descending>
+        <output_padding>N</output_padding>
+        <date_format_lenient>N</date_format_lenient>
+        <date_format_locale>es_VE</date_format_locale>
+        <date_format_timezone>America/Caracas</date_format_timezone>
+        <lenient_string_to_number>N</lenient_string_to_number>
+      </value-meta>
+    </row-meta>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>448</xloc>
+      <yloc>192</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Sort fecha_inicio</name>
     <type>SortRows</type>
     <description/>
     <distribute>Y</distribute>
@@ -867,7 +1060,7 @@ FROM seguro_g26473471.tipo_producto
     <unique_rows>N</unique_rows>
     <fields>
       <field>
-        <name>cod_tipo_producto</name>
+        <name>fec_inicio</name>
         <ascending>Y</ascending>
         <case_sensitive>N</case_sensitive>
         <collator_enabled>N</collator_enabled>
@@ -884,13 +1077,13 @@ FROM seguro_g26473471.tipo_producto
       </output>
     </remotesteps>
     <GUI>
-      <xloc>384</xloc>
-      <yloc>208</yloc>
+      <xloc>576</xloc>
+      <yloc>96</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
-    <name>Ordenar filas 2</name>
+    <name>Sort fecha_completa</name>
     <type>SortRows</type>
     <description/>
     <distribute>Y</distribute>
@@ -909,7 +1102,7 @@ FROM seguro_g26473471.tipo_producto
     <unique_rows>N</unique_rows>
     <fields>
       <field>
-        <name>cod_tipo_producto</name>
+        <name>fecha_completa</name>
         <ascending>Y</ascending>
         <case_sensitive>N</case_sensitive>
         <collator_enabled>N</collator_enabled>
@@ -926,13 +1119,99 @@ FROM seguro_g26473471.tipo_producto
       </output>
     </remotesteps>
     <GUI>
-      <xloc>384</xloc>
-      <yloc>368</yloc>
+      <xloc>576</xloc>
+      <yloc>192</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
-    <name>Ordenar filas 3</name>
+    <name>Merge join 2</name>
+    <type>MergeJoin</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <join_type>INNER</join_type>
+    <step1>Sort fecha_completa</step1>
+    <step2>Sort fecha_inicio</step2>
+    <keys_1>
+      <key>fecha_completa</key>
+    </keys_1>
+    <keys_2>
+      <key>fec_inicio</key>
+    </keys_2>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>720</xloc>
+      <yloc>144</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Select values 2</name>
+    <type>SelectValues</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <fields>
+      <field>
+        <name>sk_dim_tiempo</name>
+        <rename>fecha_inicio</rename>
+      </field>
+      <field>
+        <name>fec_final</name>
+        <rename/>
+      </field>
+      <field>
+        <name>monto</name>
+        <rename/>
+      </field>
+      <field>
+        <name>renov</name>
+        <rename/>
+      </field>
+      <field>
+        <name>aseg</name>
+        <rename/>
+      </field>
+      <field>
+        <name>sk_dim_producto</name>
+        <rename/>
+      </field>
+      <select_unspecified>N</select_unspecified>
+    </fields>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>816</xloc>
+      <yloc>144</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Sort fecha_final</name>
     <type>SortRows</type>
     <description/>
     <distribute>Y</distribute>
@@ -951,7 +1230,7 @@ FROM seguro_g26473471.tipo_producto
     <unique_rows>N</unique_rows>
     <fields>
       <field>
-        <name>cod_producto</name>
+        <name>fec_final</name>
         <ascending>Y</ascending>
         <case_sensitive>N</case_sensitive>
         <collator_enabled>N</collator_enabled>
@@ -968,13 +1247,222 @@ FROM seguro_g26473471.tipo_producto
       </output>
     </remotesteps>
     <GUI>
-      <xloc>640</xloc>
-      <yloc>272</yloc>
+      <xloc>912</xloc>
+      <yloc>144</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
-    <name>Salida Tabla</name>
+    <name>extraer dim_tiempo2</name>
+    <type>TableInput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <connection>postgre</connection>
+    <sql>SELECT sk_dim_tiempo, fecha_completa FROM seguro_dw_g26473471.dim_tiempo</sql>
+    <limit>0</limit>
+    <lookup/>
+    <execute_each_row>N</execute_each_row>
+    <variables_active>N</variables_active>
+    <lazy_conversion_active>N</lazy_conversion_active>
+    <cached_row_meta_active>N</cached_row_meta_active>
+    <row-meta>
+      <value-meta>
+        <type>Integer</type>
+        <storagetype>normal</storagetype>
+        <name>sk_dim_tiempo</name>
+        <length>9</length>
+        <precision>0</precision>
+        <origin>extraer dim_tiempo2</origin>
+        <comments>sk_dim_tiempo</comments>
+        <conversion_Mask>####0;-####0</conversion_Mask>
+        <decimal_symbol>,</decimal_symbol>
+        <grouping_symbol>.</grouping_symbol>
+        <currency_symbol/>
+        <trim_type>none</trim_type>
+        <case_insensitive>N</case_insensitive>
+        <collator_disabled>Y</collator_disabled>
+        <collator_strength>0</collator_strength>
+        <sort_descending>N</sort_descending>
+        <output_padding>N</output_padding>
+        <date_format_lenient>N</date_format_lenient>
+        <date_format_locale>es_VE</date_format_locale>
+        <date_format_timezone>America/Caracas</date_format_timezone>
+        <lenient_string_to_number>N</lenient_string_to_number>
+      </value-meta>
+      <value-meta>
+        <type>Date</type>
+        <storagetype>normal</storagetype>
+        <name>fecha_completa</name>
+        <length>-1</length>
+        <precision>-1</precision>
+        <origin>extraer dim_tiempo2</origin>
+        <comments>fecha_completa</comments>
+        <conversion_Mask/>
+        <decimal_symbol>,</decimal_symbol>
+        <grouping_symbol>.</grouping_symbol>
+        <currency_symbol/>
+        <trim_type>none</trim_type>
+        <case_insensitive>N</case_insensitive>
+        <collator_disabled>Y</collator_disabled>
+        <collator_strength>0</collator_strength>
+        <sort_descending>N</sort_descending>
+        <output_padding>N</output_padding>
+        <date_format_lenient>N</date_format_lenient>
+        <date_format_locale>es_VE</date_format_locale>
+        <date_format_timezone>America/Caracas</date_format_timezone>
+        <lenient_string_to_number>N</lenient_string_to_number>
+      </value-meta>
+    </row-meta>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>864</xloc>
+      <yloc>240</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Sort fecha_completa2</name>
+    <type>SortRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <directory>%%java.io.tmpdir%%</directory>
+    <prefix>out</prefix>
+    <sort_size>1000000</sort_size>
+    <free_memory/>
+    <compress>N</compress>
+    <compress_variable/>
+    <unique_rows>N</unique_rows>
+    <fields>
+      <field>
+        <name>fecha_completa</name>
+        <ascending>Y</ascending>
+        <case_sensitive>N</case_sensitive>
+        <collator_enabled>N</collator_enabled>
+        <collator_strength>0</collator_strength>
+        <presorted>N</presorted>
+      </field>
+    </fields>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>1008</xloc>
+      <yloc>240</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Merge join 3</name>
+    <type>MergeJoin</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <join_type>INNER</join_type>
+    <step1>Sort fecha_final</step1>
+    <step2>Sort fecha_completa2</step2>
+    <keys_1>
+      <key>fec_final</key>
+    </keys_1>
+    <keys_2>
+      <key>fecha_completa</key>
+    </keys_2>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>1008</xloc>
+      <yloc>144</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>dejar sk_dim fec_final </name>
+    <type>SelectValues</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <fields>
+      <field>
+        <name>sk_dim_tiempo</name>
+        <rename>fecha_final</rename>
+      </field>
+      <field>
+        <name>fecha_inicio</name>
+        <rename/>
+      </field>
+      <field>
+        <name>monto</name>
+        <rename/>
+      </field>
+      <field>
+        <name>renov</name>
+        <rename/>
+      </field>
+      <field>
+        <name>aseg</name>
+        <rename/>
+      </field>
+      <field>
+        <name>sk_dim_producto</name>
+        <rename/>
+      </field>
+      <select_unspecified>N</select_unspecified>
+    </fields>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>1136</xloc>
+      <yloc>144</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Table output</name>
     <type>TableOutput</type>
     <description/>
     <distribute>Y</distribute>
@@ -984,13 +1472,13 @@ FROM seguro_g26473471.tipo_producto
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <connection>Postgres</connection>
+    <connection>postgre</connection>
     <schema>seguro_dw_g26473471</schema>
-    <table>dim_producto</table>
+    <table>fact_metas</table>
     <commit>1000</commit>
     <truncate>N</truncate>
     <ignore_errors>N</ignore_errors>
-    <use_batch>N</use_batch>
+    <use_batch>Y</use_batch>
     <specify_fields>Y</specify_fields>
     <partitioning_enabled>N</partitioning_enabled>
     <partitioning_field/>
@@ -1003,33 +1491,29 @@ FROM seguro_g26473471.tipo_producto
     <return_field/>
     <fields>
       <field>
+        <column_name>sk_dim_fecha_fin_meta</column_name>
+        <stream_name>fecha_final</stream_name>
+      </field>
+      <field>
+        <column_name>sk_dim_fecha_inicio_meta</column_name>
+        <stream_name>fecha_inicio</stream_name>
+      </field>
+      <field>
+        <column_name>monto_meta_venta</column_name>
+        <stream_name>monto</stream_name>
+      </field>
+      <field>
+        <column_name>meta_renovacion</column_name>
+        <stream_name>renov</stream_name>
+      </field>
+      <field>
+        <column_name>meta_asegurados</column_name>
+        <stream_name>aseg</stream_name>
+      </field>
+      <field>
         <column_name>sk_dim_producto</column_name>
         <stream_name>sk_dim_producto</stream_name>
       </field>
-      <field>
-        <column_name>cod_producto</column_name>
-        <stream_name>cod_producto</stream_name>
-      </field>
-      <field>
-        <column_name>nb_producto</column_name>
-        <stream_name>nb_producto</stream_name>
-      </field>
-      <field>
-        <column_name>descrip_producto</column_name>
-        <stream_name>descripcion</stream_name>
-      </field>
-      <field>
-        <column_name>cod_tipo_producto</column_name>
-        <stream_name>cod_tipo_producto</stream_name>
-      </field>
-      <field>
-        <column_name>nb_tipo_producto</column_name>
-        <stream_name>nb_tipo_producto</stream_name>
-      </field>
-      <field>
-        <column_name>calificacion</column_name>
-        <stream_name>calificacion</stream_name>
-      </field>
     </fields>
     <attributes/>
     <cluster_schema/>
@@ -1040,87 +1524,8 @@ FROM seguro_g26473471.tipo_producto
       </output>
     </remotesteps>
     <GUI>
-      <xloc>1136</xloc>
-      <yloc>272</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>Strings cut</name>
-    <type>StringCut</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <fields>
-      <field>
-        <in_stream_name>nb_tipo_producto</in_stream_name>
-        <out_stream_name/>
-        <cut_from/>
-        <cut_to>25</cut_to>
-      </field>
-      <field>
-        <in_stream_name>nb_producto</in_stream_name>
-        <out_stream_name/>
-        <cut_from/>
-        <cut_to>25</cut_to>
-      </field>
-      <field>
-        <in_stream_name>descripcion</in_stream_name>
-        <out_stream_name/>
-        <cut_from>10</cut_from>
-        <cut_to>30</cut_to>
-      </field>
-    </fields>
-    <attributes/>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>960</xloc>
-      <yloc>272</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>Unión por clave</name>
-    <type>MergeJoin</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <join_type>INNER</join_type>
-    <step1>Ordenar filas</step1>
-    <step2>Ordenar filas 2</step2>
-    <keys_1>
-      <key>cod_tipo_producto</key>
-    </keys_1>
-    <keys_2>
-      <key>cod_tipo_producto</key>
-    </keys_2>
-    <attributes/>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>528</xloc>
-      <yloc>272</yloc>
+      <xloc>1264</xloc>
+      <yloc>144</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
