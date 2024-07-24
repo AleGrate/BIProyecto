@@ -386,7 +386,7 @@ insert into SEGURO_G26473471.SUCURSAL (cod_sucursal, nb_sucursal, cod_ciudad) va
 insert into SEGURO_G26473471.SUCURSAL (cod_sucursal, nb_sucursal, cod_ciudad) values (19, 'Sucursal Istanbul', 19);
 insert into SEGURO_G26473471.SUCURSAL (cod_sucursal, nb_sucursal, cod_ciudad) values (20, 'Sucursal Kyiv', 20);
 insert into SEGURO_G26473471.SUCURSAL (cod_sucursal, nb_sucursal, cod_ciudad) values (21, 'Sucursal Hanoi', 21);
-insert into SEGURO_G26473471.SUCURSAL (cod_sucursal, nb_sucursal, cod_ciudad) values (22, 'SucursalSanaa', 22);
+insert into SEGURO_G26473471.SUCURSAL (cod_sucursal, nb_sucursal, cod_ciudad) values (22, 'Sucursal Sanaa', 22);
 insert into SEGURO_G26473471.SUCURSAL (cod_sucursal, nb_sucursal, cod_ciudad) values (23, 'Sucursal Lusaka', 23);
 insert into SEGURO_G26473471.SUCURSAL (cod_sucursal, nb_sucursal, cod_ciudad) values (24, 'Sucursal Sydney', 24);
 insert into SEGURO_G26473471.SUCURSAL (cod_sucursal, nb_sucursal, cod_ciudad) values (25, 'Sucursal Santiago', 25);
