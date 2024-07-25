@@ -1,0 +1,29 @@
+Universidad Central de Venezuela
+Facultad de Ciencias
+Escuela de Computacion
+Materia: Inteligencia de Negocio
+
+********************** ENTREGA DE PROYECTO FASE 2 **********************
+
+Integrantes:
+Luis Fernando Rodriguez - 26284063
+Anthony Alvarado - 27321522
+Alejandro Graterol - 26473471
+
+-> Herramientas usadas para generar el proyecto:
+    - Base de datos: Postgre
+    - Procesos ETL's: Pentaho Data Integration
+    - Dashboard: Power BI
+
+-> Condiciones para ejecutar el proyecto
+    Debido a que el proyecto fue realizado en un ambiente totalmente local, se deben considerar las rutas directorio donde esten ubicados los archivos, 
+    dicho esto se debe hacer:
+
+    1) Crear una base de datos en Postgre que tenga como nombre "proyecto_bi"
+    2) Crear una carpeta en el disco duro local (C:) con nombre "proyectobi" (Ruta: C:\proyectobi)
+    3) Agregar todos los archivos del proyecto a la carpeta mencionada anteriormente
+
+-> Orden de ejecucion de archivos:
+    1) Script principal de la base datos (01_SETUP.sql)     <Creacion de esquemas y carga de datos en el modelo fuente>
+    2) Ejecutar el job de los procesos ETL                  <Cargar data del modelo fuente al dimensional>
+    3) Abrir el Dashboard en PowerBI y actualizar           <Visualizacion de indicadores>
