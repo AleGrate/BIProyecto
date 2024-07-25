@@ -734,7 +734,7 @@
     </partitioning>
     <formula>
       <field_name>dia_annio</field_name>
-      <formula_string>DATEDIF(DATE([annio];[mes];1) ; [fecha];"d")+1</formula_string>
+      <formula_string>DATEDIF(DATE([annio];1;1) ; [fecha];"d")+1</formula_string>
       <value_type>Integer</value_type>
       <value_length>-1</value_length>
       <value_precision>-1</value_precision>
@@ -767,7 +767,7 @@
     </partitioning>
     <formula>
       <field_name>dia_mes</field_name>
-      <formula_string>DATEDIF(DATE([annio];1;1) ; [fecha];"m")+1</formula_string>
+      <formula_string>DATEDIF(DATE([annio];[mes];1) ; [fecha];"d")+1</formula_string>
       <value_type>Integer</value_type>
       <value_length>-1</value_length>
       <value_precision>-1</value_precision>
